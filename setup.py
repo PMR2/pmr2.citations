@@ -25,6 +25,7 @@ setup(name='pmr2.citations',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'SOAPpy',  # for the pubmed webapi
       ],
       entry_points="""
       # -*- Entry points: -*-

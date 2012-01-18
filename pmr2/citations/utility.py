@@ -55,8 +55,9 @@ class JsonCitationImporter(BaseCitationImporter):
         results = []
 
         for raw_citation in raw_items:
-            rawid = str(raw_citation['id'])
-            item = Citation(rawid)
+            rawid = raw_citation['id']
+            item = Citation(str(rawid))
+            item.ids = raw_citation['ids']
             item.title = raw_citation['title']
             item.creator = raw_citation['creator']
             item.issued = raw_citation['issued']

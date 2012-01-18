@@ -17,7 +17,7 @@ class Citation(atapi.BaseContent):
     zope.interface.implements(ICitation)
     security = ClassSecurityInfo()
 
-    id = fieldproperty.FieldProperty(ICitation['id'])
+    ids = fieldproperty.FieldProperty(ICitation['ids'])
     title = fieldproperty.FieldProperty(ICitation['title'])
     creator = fieldproperty.FieldProperty(ICitation['creator'])
     issued = fieldproperty.FieldProperty(ICitation['issued'])

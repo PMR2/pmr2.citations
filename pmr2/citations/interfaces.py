@@ -12,8 +12,16 @@ class ICitation(zope.interface.Interface):
     """
 
     id = zope.schema.ASCIILine(
-        title=u'Citation Identifier',
-        description=u'URN to this citation.',
+        title=u'Object identifier',
+        description=u'ID for this object; included here in interface for'
+                     'completeness',
+        required=True,
+    )
+
+    ids = zope.schema.List(
+        title=u'Citation Identifiers',
+        description=u'A list of URNs that can represent this resource.',
+        value_type=zope.schema.TextLine(title=u'ID'),
         required=True,
     )
 
@@ -26,6 +34,7 @@ class ICitation(zope.interface.Interface):
     creator = zope.schema.List(
         title=u'Authors',
         description=u'Authors of this piece of work',
+        value_type=zope.schema.TextLine(title=u'Author'),
         required=False,
     )
 

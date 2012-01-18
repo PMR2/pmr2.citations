@@ -32,7 +32,6 @@ class PubmedCitationImporter(BaseCitationImporter):
         """
 
         def to_medline(article):
-            # 1977 Jun;268(1):177-210
             abbr = article.Journal.ISOAbbreviation
             pubdate = u' '.join(list(article.Journal.JournalIssue.PubDate))
             volume = article.Journal.JournalIssue.Volume
@@ -47,6 +46,12 @@ class PubmedCitationImporter(BaseCitationImporter):
                 author = list(author)
             return [u'%s %s' % (a.LastName, a.Initials) for a in author]
 
+        def to_ids(id_):
+            # assume info and miriam are all valid
+            miriam_base = u'urn:miriam:pubmed:%s'
+            info_base = u'info:pmid/%s'
+            return [miriam_base % id_, info_base % id_]
+
         try:
             raw = self.service.run_eFetch(db=self.db, id=pmid)
         except SOAPTimeoutError:
@@ -60,10 +65,11 @@ class PubmedCitationImporter(BaseCitationImporter):
             raise
 
         # using info for now
-        citation_id = 'info:pmid/%s' % pmid
+        obj_id = 'pmid-%s' % pmid
         article = raw.PubmedArticle.MedlineCitation.Article
 
-        citation = Citation(citation_id)
+        citation = Citation(obj_id)
+        citation.ids = to_ids(pmid)
         citation.title = unicode(article.ArticleTitle)
         citation.creator = to_author_list(article)
         citation.issued = unicode(article.Journal.JournalIssue.PubDate.Year)

@@ -13,25 +13,25 @@ from pmr2.citations.content import Citation
 #from pmr2.citations.tests.base import TestCitation
 
 
+ptc.setupPloneSite() #products=('pmr2.citations',))
+
+
 class CitationTestCase(ptc.PloneTestCase):
     """\
     The core citation test case.
     """
 
-    def setUp(self):
+    def afterSetUp(self):
         self.container = {}
         self.exporter = JsonCitationExporter()
         self.importer = JsonCitationImporter()
 
-    def tearDown(self):
-        zope.component.testing.tearDown()
-
     def test_0000_json_import_export_cycle(self):
-        testid = 'urn:test1'
+        testid = 'test1'
         citation = Citation(testid)
-        #citation.id = 'urn:test1'
+        citation.ids = [u'urn:test1',]
         citation.title = u'Test Title One'
-        citation.creator = ['Tester One', 'Tester Two']
+        citation.creator = [u'Tester One', u'Tester Two']
         citation.issued = u'2001-01-01'
         citation.bibliographicCitation = u'Test Journal'
         citation.abstract = None
@@ -40,12 +40,13 @@ class CitationTestCase(ptc.PloneTestCase):
         jsonstr = self.exporter.export(self.container)
         jsonstream = StringIO(jsonstr)
 
-        new_container = {}
+        new_container = self.folder
         self.importer.parseInto(new_container, jsonstream)
-
         
         self.assertEqual(new_container[testid].id, 
                          self.container[testid].id)
+        self.assertEqual(new_container[testid].ids[0], 
+                         self.container[testid].ids[0])
         self.assertEqual(new_container[testid].title, 
                          self.container[testid].title)
         self.assertEqual(new_container[testid].creator, 

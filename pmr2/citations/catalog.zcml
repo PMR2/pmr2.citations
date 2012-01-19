@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="pmr2.citations">
+
+  <!-- Indexes -->
+
+  <adapter 
+      factory=".catalog.pmr2_citations_id" 
+      name="pmr2_citations_id" />
+
+  <adapter 
+      factory=".catalog.pmr2_citations_title" 
+      name="pmr2_citations_title" />
+
+  <adapter 
+      factory=".catalog.pmr2_citations_creator" 
+      name="pmr2_citations_creator" />
+
+  <adapter 
+      factory=".catalog.pmr2_citations_issued" 
+      name="pmr2_citations_issued" />
+
+</configure> 

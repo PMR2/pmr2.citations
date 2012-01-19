@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="pmr2.citations">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="PMR2 Citations"
+      directory="profiles/default"
+      description="Citations module for PMR2"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      />
+
+</configure>

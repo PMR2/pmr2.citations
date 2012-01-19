@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+
+  <index name="pmr2_citations_id" meta_type="KeywordIndex">
+    <indexed_attr value="pmr2_citations_id"/>
+  </index>
+
+  <index name="pmr2_citations_title" meta_type="FieldIndex">
+    <indexed_attr value="pmr2_citations_title"/>
+  </index>
+
+  <index name="pmr2_citations_creator" meta_type="KeywordIndex">
+    <indexed_attr value="pmr2_citations_creator"/>
+  </index>
+
+  <index name="pmr2_citations_issued" meta_type="FieldIndex">
+    <indexed_attr value="pmr2_citations_issued"/>
+  </index>
+
+  <column value="pmr2_citations_id"/>
+  <column value="pmr2_citations_title"/>
+  <column value="pmr2_citations_creator"/>
+  <column value="pmr2_citations_issued"/>
+
+</object>

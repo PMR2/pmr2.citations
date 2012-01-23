@@ -5,9 +5,9 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="PMR2 Citations"
+      title="PMR2 Citations Catalog"
       directory="profiles/default"
-      description="Citations module for PMR2"
+      description="PMR2 addon for import and management of citations"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       />

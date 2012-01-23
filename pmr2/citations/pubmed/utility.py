@@ -1,3 +1,5 @@
+from os.path import dirname, join
+
 from SOAPpy import WSDL
 from SOAPpy.Client import SOAPTimeoutError
 from SOAPpy.Errors import Error
@@ -5,8 +7,10 @@ from SOAPpy.Errors import Error
 from pmr2.citations.content import Citation
 from pmr2.citations.utility import BaseCitationImporter
 
-PUBMED_WSDL = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/soap/v2.0/' \
+_PUBMED_WSDL = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/soap/v2.0/' \
               'efetch_pubmed.wsdl'
+PUBMED_WSDL = join(dirname(__file__), 'efetch_pubmed.wsdl')
+
 
 class PubmedCitationImporter(BaseCitationImporter):
 
@@ -43,7 +47,7 @@ class PubmedCitationImporter(BaseCitationImporter):
         def to_author_list(article):
             author = article.AuthorList.Author
             if not isinstance(author, list):
-                author = list(author)
+                author = [author]
             return [u'%s %s' % (a.LastName, a.Initials) for a in author]
 
         def to_ids(id_):
@@ -73,6 +77,7 @@ class PubmedCitationImporter(BaseCitationImporter):
         citation.title = unicode(article.ArticleTitle)
         citation.creator = to_author_list(article)
         citation.issued = unicode(article.Journal.JournalIssue.PubDate.Year)
+        citation.abstract = unicode(article.Abstract.AbstractText)
         citation.bibliographicCitation = to_medline(article)
 
         return [citation]

@@ -21,6 +21,9 @@ class PubmedCitationTestCase(ptc.PloneTestCase):
     Live test for the pubmed API.
     """
 
+    # really don't want this to run unless explicitly specified
+    level = 9
+
     def afterSetUp(self):
         self.container = {}
         self.importer = PubmedCitationImporter()
@@ -39,10 +42,22 @@ class PubmedCitationTestCase(ptc.PloneTestCase):
            u'Reconstruction of the action potential of ventricular myocardial '
             'fibres.')
 
+    def test_0010_pubmed_single_author(self):
+        testid = '8587874'
+        objid = 'pmid-8587874'
+
+        container = self.folder
+        self.importer.parseInto(container, testid)
+        
+        self.assertEqual(container[objid].id, objid)
+        self.assertEqual(container[objid].title,
+           u'A model for circadian oscillations in the Drosophila period '
+            'protein (PER).')
+        self.assertEqual(container[objid].creator, [u'Goldbeter A'])
+
 
 def test_suite():
     suite = TestSuite()
-    # Uncomment to enable live testing.
-    # suite.addTest(makeSuite(PubmedCitationTestCase))
+    suite.addTest(makeSuite(PubmedCitationTestCase))
     return suite
 

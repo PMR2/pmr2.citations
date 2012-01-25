@@ -1,3 +1,4 @@
+import re
 from os.path import dirname, join
 
 from SOAPpy import WSDL
@@ -11,6 +12,8 @@ _PUBMED_WSDL = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/soap/v2.0/' \
               'efetch_pubmed.wsdl'
 PUBMED_WSDL = join(dirname(__file__), 'efetch_pubmed.wsdl')
 
+
+pmid_pattern = re.compile('[0-9]*$')
 
 class PubmedCitationImporter(BaseCitationImporter):
 
@@ -29,6 +32,13 @@ class PubmedCitationImporter(BaseCitationImporter):
         if not hasattr(self, '_service'):
             self._service = WSDL.Proxy(self.service_url)
         return self._service
+
+    def extractId(self, identifier):
+        """\
+        Very naive way to extract what looks like an pubmed identifier.
+        """
+
+        return pmid_pattern.findall(identifier)[0]
 
     def parse(self, pmid, *a, **kw):
         """\
@@ -56,6 +66,8 @@ class PubmedCitationImporter(BaseCitationImporter):
             info_base = u'info:pmid/%s'
             return [miriam_base % id_, info_base % id_]
 
+        # XXX need to verify that we already have this item.
+
         try:
             raw = self.service.run_eFetch(db=self.db, id=pmid)
         except SOAPTimeoutError:
@@ -81,3 +93,8 @@ class PubmedCitationImporter(BaseCitationImporter):
         citation.bibliographicCitation = to_medline(article)
 
         return [citation]
+
+    def parseId(self, pmid):
+        # automatically convert miriam base and info base to plain
+        # pubmed identifier here?
+        return self.parse(pmid)

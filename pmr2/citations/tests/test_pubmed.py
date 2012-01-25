@@ -18,6 +18,36 @@ ptc.setupPloneSite() #products=('pmr2.citations',))
 
 class PubmedCitationTestCase(ptc.PloneTestCase):
     """\
+    Standard test for the pubmed API.
+    """
+
+    def afterSetUp(self):
+        self.container = {}
+        self.importer = PubmedCitationImporter()
+
+    def test_0000_extract_miriam(self):
+        miriam = 'urn:miriam:pubmed:874889'
+        result = self.importer.extractId(miriam)
+        self.assertEqual(result, '874889')
+
+    def test_0001_extract_miriam_none(self):
+        miriam = 'urn:miriam:pubmed:None'
+        result = self.importer.extractId(miriam)
+        self.assertEqual(result, '')
+
+    def test_0010_extract_info(self):
+        info = 'info:pmid/874889'
+        result = self.importer.extractId(info)
+        self.assertEqual(result, '874889')
+
+    def test_0020_extract_none(self):
+        info = 'info:fake/fake'
+        result = self.importer.extractId(info)
+        self.assertEqual(result, '')
+
+
+class PubmedCitationLiveTestCase(ptc.PloneTestCase):
+    """\
     Live test for the pubmed API.
     """
 
@@ -59,5 +89,6 @@ class PubmedCitationTestCase(ptc.PloneTestCase):
 def test_suite():
     suite = TestSuite()
     suite.addTest(makeSuite(PubmedCitationTestCase))
+    suite.addTest(makeSuite(PubmedCitationLiveTestCase))
     return suite
 

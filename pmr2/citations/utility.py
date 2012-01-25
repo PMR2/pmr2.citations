@@ -21,6 +21,8 @@ class BaseCitationImporter(object):
 
     zope.interface.implements(ICitationImporter)
 
+    description = u''
+
     def __init__(self):
         pass
 
@@ -40,11 +42,20 @@ class BaseCitationImporter(object):
         citations = self.parse(*a, **kw)
         self.addInto(context, citations)
 
+    def parseId(self, identifier):
+        raise NotImplementedError
+
+    def parseIdInto(self, context, identifier):
+        citations = self.parseId(identifier)
+        self.addInto(context, citations)
+
 
 class JsonCitationImporter(BaseCitationImporter):
     """\
     Imports from a json export.
     """
+
+    description = u'Citation JSON Importer'
 
     def parse(self, stream=None, *a, **kw):
 
@@ -66,6 +77,19 @@ class JsonCitationImporter(BaseCitationImporter):
 
         return results
 
+    def parseId(self, identifier):
+        """
+        Idenitifier in this case will be a path, but we don't implement
+        this yet.
+        """
+
+        raise NotImplementedError
+
+        # we can have this, but need to figure out how to handle this
+        # in a secure way.
+        stream = open(identifier)
+        return self.parse(stream)
+
 
 class JsonCitationExporter(object):
     """\
@@ -73,6 +97,8 @@ class JsonCitationExporter(object):
     """
 
     zope.interface.implements(ICitationExporter)
+
+    description = u'Citation JSON Exporter'
 
     def __init__(self):
         pass

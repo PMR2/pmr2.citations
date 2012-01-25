@@ -63,6 +63,11 @@ class ICitationExporter(zope.interface.Interface):
     Should be implemented as a utility.
     """
 
+    description = zope.schema.TextLine(
+        title=u'Description',
+        required=False,
+    )
+
     def export(container):
         """
         Export this citation out into some common format for archiving/
@@ -76,6 +81,11 @@ class ICitationImporter(zope.interface.Interface):
 
     Provides a method that contructs a citation object.
     """
+
+    description = zope.schema.TextLine(
+        title=u'Description',
+        required=False,
+    )
 
     def addInto(context, items):
         """
@@ -94,6 +104,16 @@ class ICitationImporter(zope.interface.Interface):
         """
 
     def parseInto(context, *a, **kw):
+        """\
+        Combines the above two functions.
+        """
+
+    def parseId(identifier):
+        """\
+        Get a list of citations based on a identifier string.
+        """
+
+    def parseIdInto(context, identifier, *a, **kw):
         """\
         Combines the above two functions.
         """

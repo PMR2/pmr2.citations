@@ -3,4 +3,18 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="pmr2.citations">
 
+  <browser:page
+      for="pmr2.citations.content.Citation"
+      name="citation_view"
+      class=".view.CitationView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="Products.CMFCore.interfaces.IFolderish"
+      name="citation_import"
+      class=".form.CitationImportForm"
+      permission="cmf.ModifyPortalContent"
+      />
+
 </configure>

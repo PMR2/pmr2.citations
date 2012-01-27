@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="pmr2.citations">
+
+  <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component=".vocab.CitationImporterVocabFactory"
+      name="pmr2.citations.vocab.import_methods"
+      />
+
+</configure>

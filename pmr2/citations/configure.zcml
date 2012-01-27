@@ -7,5 +7,6 @@
   <include file="catalog.zcml" />
   <include file="profiles.zcml" />
   <include file="subscriber.zcml" />
+  <include file="vocab.zcml" />
 
 </configure>

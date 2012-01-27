@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="pmr2.citations">
+<body>
+
+<metal:main fill-slot="main">
+
+  <div class="citation-heading">
+    <h1 tal:content="view/title">Citation title</h1>
+    <div tal:content="view/creator">Author A, Author B</div>
+    <div tal:content="view/bibliographicCitation">Source</div>
+  </div>
+
+  <div class="citation-abstract">
+
+    <h2>Abstract</h2>
+
+    <p tal:content="view/abstract">Abstract</p>
+
+  </div>
+
+</metal:main>
+
+</body>
+</html>

@@ -1,6 +1,10 @@
 import json
 
 import zope.interface
+import zope.component
+import zope.event
+import zope.lifecycleevent
+from zope.app.component.hooks import getSite
 
 from Products.CMFCore.utils import getToolByName
 
@@ -32,8 +36,8 @@ class BaseCitationImporter(object):
         """
 
         for item in items:
+            zope.event.notify(zope.lifecycleevent.ObjectCreatedEvent(item))
             context[item.id] = item
-            context[item.id].reindexObject()
 
     def parse(self, *a, **kw):
         raise NotImplementedError

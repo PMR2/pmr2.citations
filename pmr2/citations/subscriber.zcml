@@ -1,0 +1,17 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="pmr2">
+
+  <subscriber
+      for="pmr2.citations.interfaces.ICitation
+          zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      handler=".subscriber.catalog_content"
+      />
+
+  <subscriber
+      for="pmr2.citations.interfaces.ICitation
+          zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+      handler=".subscriber.catalog_content"
+      />
+
+</configure>

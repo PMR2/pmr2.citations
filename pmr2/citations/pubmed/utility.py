@@ -13,6 +13,7 @@ _PUBMED_WSDL = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/soap/v2.0/' \
 PUBMED_WSDL = join(dirname(__file__), 'efetch_pubmed.wsdl')
 
 
+# very naive way to match the identifiers we support.
 pmid_pattern = re.compile('[0-9]*$')
 
 class PubmedCitationImporter(BaseCitationImporter):

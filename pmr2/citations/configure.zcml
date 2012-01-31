@@ -4,9 +4,12 @@
     i18n_domain="pmr2.citations">
 
   <include package=".browser" />
+  <include package=".pubmed" />
+
   <include file="catalog.zcml" />
   <include file="profiles.zcml" />
   <include file="subscriber.zcml" />
+  <include file="utility.zcml" />
   <include file="vocab.zcml" />
 
 </configure>

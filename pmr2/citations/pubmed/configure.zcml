@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="pmr2.citations">
+
+  <utility
+      name="pubmed"
+      factory=".utility.PubmedCitationImporter"
+      provides=".interfaces.ICitationImporter"
+      />
+
+</configure>

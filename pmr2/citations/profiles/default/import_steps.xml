@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="pmr2_citations_settings" version="0.0"
+               handler="pmr2.citations.setuphandlers.importVarious"
+               title="PMR2 Citations Registry Settings">
+  </import-step>
+</import-steps>

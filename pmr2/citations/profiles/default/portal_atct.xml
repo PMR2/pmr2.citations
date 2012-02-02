@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<atcttool
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <!--
+ <topic_metadata i18n:domain="pmr2.citations">
+  <metadata name="pmr2_citations_id" enabled="True" description=""
+      friendlyName="PMR2 Citation ID"/>
+  <metadata name="pmr2_citations_title" enabled="True" description=""
+      friendlyName="PMR2 Citation Title"/>
+  <metadata name="pmr2_citation_creator" enabled="True" description=""
+      friendlyName="PMR2 Citation Authors"/>
+  <metadata name="pmr2_citations_issued" enabled="True" description=""
+      friendlyName="PMR2 Citation Issued"/>
+ </topic_metadata>
+ -->
+</atcttool>

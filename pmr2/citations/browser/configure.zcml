@@ -17,4 +17,11 @@
       permission="cmf.ModifyPortalContent"
       />
 
+  <browser:page
+      for="*"
+      name="citation_settings"
+      class=".form.CitationSettingsForm"
+      permission="cmf.ModifyPortalContent"
+      />
+
 </configure>

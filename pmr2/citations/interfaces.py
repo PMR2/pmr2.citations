@@ -2,6 +2,17 @@ import zope.interface
 import zope.schema
 
 
+class ICitationSettings(zope.interface.Interface):
+
+    default_path = zope.schema.ASCIILine(
+        title=u'Default citation path',
+        description=u'The path on the portal where imported citations are '
+                     'placed.',
+        required=True,
+        default='/',
+    )
+
+
 class ICitation(zope.interface.Interface):
     """\
     General citation annotation.  Losely based on Dublin Core.

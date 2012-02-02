@@ -8,7 +8,10 @@ from zope.app.component.hooks import getSite
 
 from Products.CMFCore.utils import getToolByName
 
+from plone.registry.interfaces import IRegistry
+
 from pmr2.citations.interfaces import ICitation
+from pmr2.citations.interfaces import ICitationSettings
 from pmr2.citations.interfaces import ICitationImporter
 from pmr2.citations.interfaces import ICitationExporter
 

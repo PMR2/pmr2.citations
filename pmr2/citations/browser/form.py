@@ -1,6 +1,8 @@
 import zope.component
 import zope.interface
 
+from plone.registry.interfaces import IRegistry
+
 from z3c.form import form, field, button, interfaces
 
 from Products.Five.browser import BrowserView
@@ -8,7 +10,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from pmr2.app.browser import form
 
-from pmr2.citations.interfaces import ICitationImporter
+from pmr2.citations.interfaces import ICitationImporter, ICitationSettings
 from pmr2.citations.browser.interfaces import ICitationImportForm
 
 
@@ -38,3 +40,17 @@ class CitationImportForm(form.PostForm):
 
         utility = zope.component.queryUtility(ICitationImporter, name=method)
         utility.parseIdInto(self.context, identifier)
+
+
+class CitationSettingsForm(form.EditForm):
+    """\
+    Citation setting form
+    """
+
+    fields = field.Fields(ICitationSettings)
+
+    def getContent(self):
+        registry = zope.component.queryUtility(IRegistry)
+        settings = registry.forInterface(ICitationSettings, 
+            prefix="pmr2.citations.settings", check=False)
+        return settings

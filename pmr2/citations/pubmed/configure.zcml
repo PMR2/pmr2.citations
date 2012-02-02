@@ -5,7 +5,7 @@
   <utility
       name="pubmed"
       factory=".utility.PubmedCitationImporter"
-      provides=".interfaces.ICitationImporter"
+      provides="pmr2.citations.interfaces.ICitationImporter"
       />
 
 </configure>

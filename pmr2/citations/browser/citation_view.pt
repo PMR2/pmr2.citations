@@ -23,6 +23,24 @@
 
   </div>
 
+  <div class="referenced-by">
+
+    <h2>Referenced By</h2>
+
+    <ul>
+      <tal:loop tal:repeat="i view/references">
+      <li>
+        <dl>
+          <dt><a tal:attributes="href string:${i/href}/view"
+                 tal:content="i/title">Reference</a></dt>
+          <dd tal:content="i/description">Description</dd>
+        </dl>
+      </li>
+      </tal:loop>
+    </ul>
+
+  </div>
+
 </metal:main>
 
 </body>

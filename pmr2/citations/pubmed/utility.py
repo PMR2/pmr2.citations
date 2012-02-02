@@ -18,6 +18,8 @@ pmid_pattern = re.compile('[0-9]*$')
 
 class PubmedCitationImporter(BaseCitationImporter):
 
+    description = u'Pubmed SOAP Importer'
+
     def __init__(self):
         self._init_importer()
 
@@ -82,7 +84,7 @@ class PubmedCitationImporter(BaseCitationImporter):
             raise
 
         # using info for now
-        obj_id = 'pmid-%s' % pmid
+        obj_id = str('pmid-%s' % pmid)
         article = raw.PubmedArticle.MedlineCitation.Article
 
         citation = Citation(obj_id)

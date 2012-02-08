@@ -33,7 +33,7 @@ class PubmedCitationTestCase(ptc.PloneTestCase):
     def test_0001_extract_miriam_none(self):
         miriam = 'urn:miriam:pubmed:None'
         result = self.importer.extractId(miriam)
-        self.assertEqual(result, '')
+        self.assertEqual(result, None)
 
     def test_0010_extract_info(self):
         info = 'info:pmid/874889'
@@ -43,7 +43,7 @@ class PubmedCitationTestCase(ptc.PloneTestCase):
     def test_0020_extract_none(self):
         info = 'info:fake/fake'
         result = self.importer.extractId(info)
-        self.assertEqual(result, '')
+        self.assertEqual(result, None)
 
 
 class PubmedCitationLiveTestCase(ptc.PloneTestCase):
@@ -58,7 +58,7 @@ class PubmedCitationLiveTestCase(ptc.PloneTestCase):
         self.container = {}
         self.importer = PubmedCitationImporter()
 
-    def test_0000_pubmed_base_test(self):
+    def test_0000_parse_pubmed_base_test(self):
         testid = '874889'
         objid = 'pmid-874889'
 
@@ -72,18 +72,24 @@ class PubmedCitationLiveTestCase(ptc.PloneTestCase):
            u'Reconstruction of the action potential of ventricular myocardial '
             'fibres.')
 
-    def test_0010_pubmed_single_author(self):
-        testid = '8587874'
+    def test_0010_parseid_pubmed_single_author(self):
+        testid = 'urn:miriam:pubmed:8587874'
         objid = 'pmid-8587874'
 
         container = self.folder
-        self.importer.parseInto(container, testid)
+        self.importer.parseIdInto(container, testid)
         
         self.assertEqual(container[objid].id, objid)
         self.assertEqual(container[objid].title,
            u'A model for circadian oscillations in the Drosophila period '
             'protein (PER).')
         self.assertEqual(container[objid].creator, [u'Goldbeter A'])
+
+    def test_0100_parseid_pubmed_single_author_error(self):
+        testid = '8587874'
+        container = self.folder
+        self.assertRaises(ValueError, self.importer.parseIdInto, 
+            container, testid)
 
 
 def test_suite():

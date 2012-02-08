@@ -19,6 +19,10 @@ pmid_pattern = re.compile('[0-9]*$')
 class PubmedCitationImporter(BaseCitationImporter):
 
     description = u'Pubmed SOAP Importer'
+    id_patterns = [
+        u'^urn:miriam:pubmed:([0-9]*)$',
+        u'^info:pmid/([0-9]*)$',
+    ]
 
     def __init__(self):
         self._init_importer()
@@ -35,13 +39,6 @@ class PubmedCitationImporter(BaseCitationImporter):
         if not hasattr(self, '_service'):
             self._service = WSDL.Proxy(self.service_url)
         return self._service
-
-    def extractId(self, identifier):
-        """\
-        Very naive way to extract what looks like an pubmed identifier.
-        """
-
-        return pmid_pattern.findall(identifier)[0]
 
     def parse(self, pmid, *a, **kw):
         """\

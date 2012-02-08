@@ -98,12 +98,27 @@ class ICitationImporter(zope.interface.Interface):
         required=False,
     )
 
+    id_patterns = zope.schema.List(
+        title=u'Identifier Patterns',
+        description=u'The patterns valid as a source for this importer.',
+        required=False,
+        default=None,
+        value_type=zope.schema.TextLine(title=u'Values',),
+    )
+
+    # perhaps a method to compile expressions and return results later?
+
     def addInto(context, items):
         """
         Add citations into the context.
 
         Items should be a list of objects implemented the ICitation
         interface.
+        """
+
+    def extractId(identifier):
+        """\
+        Extract Id from input identifier.
         """
 
     def parse(*a, **kw):

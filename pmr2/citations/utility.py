@@ -1,3 +1,4 @@
+import re
 import json
 
 import zope.interface
@@ -29,6 +30,7 @@ class BaseCitationImporter(object):
     zope.interface.implements(ICitationImporter)
 
     description = u''
+    id_patterns = None
 
     def __init__(self):
         pass
@@ -41,6 +43,17 @@ class BaseCitationImporter(object):
         for item in items:
             zope.event.notify(zope.lifecycleevent.ObjectCreatedEvent(item))
             context[item.id] = item
+
+    def extractId(self, identifier):
+        if not self.id_patterns:
+            return None
+        for i in self.id_patterns:
+            p = re.compile(i)
+            result = p.findall(identifier)
+            if result:
+                # Only return the first result.
+                return result[0]
+        return None
 
     def parse(self, *a, **kw):
         raise NotImplementedError

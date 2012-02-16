@@ -28,9 +28,14 @@ class CitationImportForm(form.PostForm):
         if errors:
             self.status = self.formErrorsMessage
             return
-        method = data.get('import_method')
+        method = data.get('import_method', None)
         identifier = data.get('identifier')
-        return self.parseAndAdd(method, identifier)
+        try:
+            result = self.parseAndAdd(method, identifier)
+        except:
+            # XXX set error message?
+            raise
+        return
 
     def parseAndAdd(self, method, identifier):
         """\
@@ -38,6 +43,10 @@ class CitationImportForm(form.PostForm):
         identifier into the current context.
         """
 
+        if method is None:
+            # do autodetection.
+            # raise error if not found
+            pass
         utility = zope.component.queryUtility(ICitationImporter, name=method)
         utility.parseIdInto(self.context, identifier)
 

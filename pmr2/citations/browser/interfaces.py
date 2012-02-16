@@ -13,7 +13,7 @@ class ICitationImportForm(zope.interface.Interface):
         title=u'Import method',
         description=u'Select one of the available import methods.',
         vocabulary='pmr2.citations.vocab.import_methods',
-        required=True,
+        required=False,
     )
 
     identifier = zope.schema.TextLine(
@@ -22,3 +22,15 @@ class ICitationImportForm(zope.interface.Interface):
                      'selected import method.',
         required=True,
     )
+
+
+class ICitationExporterForm(zope.interface.Interface):
+    """
+    Interface for the citation exporter form.
+    """
+
+    #export_method = zope.schema.Choice(
+    #    title=u'Export method',
+    #    description=u'Select one of the available export methods.',
+    #    required=True,
+    #)

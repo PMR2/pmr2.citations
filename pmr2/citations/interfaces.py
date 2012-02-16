@@ -9,7 +9,7 @@ class ICitationSettings(zope.interface.Interface):
         description=u'The path on the portal where imported citations are '
                      'placed.',
         required=True,
-        default='/',
+        default='',
     )
 
 

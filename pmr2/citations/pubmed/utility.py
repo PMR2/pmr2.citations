@@ -94,7 +94,11 @@ class PubmedCitationImporter(BaseCitationImporter):
 
         return [citation]
 
-    def parseId(self, pmid):
+    def parseId(self, identifier):
         # automatically convert miriam base and info base to plain
         # pubmed identifier here?
+        pmid = self.extractId(identifier)
+        if not pmid:
+            raise ValueError('%s is an invalid or unknown pubmed identifier' %
+                             identifier)
         return self.parse(pmid)

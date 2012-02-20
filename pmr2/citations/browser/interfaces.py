@@ -23,6 +23,13 @@ class ICitationImportForm(zope.interface.Interface):
         required=True,
     )
 
+    import_here = zope.schema.Bool(
+        title=u'Import to Here',
+        description=u'Import the citations to this container',
+        required=False,
+        default=False,
+    )
+
 
 class ICitationExporterForm(zope.interface.Interface):
     """

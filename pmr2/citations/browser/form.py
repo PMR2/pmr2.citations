@@ -11,6 +11,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from pmr2.app.browser import form
 
 from pmr2.citations.interfaces import ICitationImporter, ICitationSettings
+from pmr2.citations.interfaces import ICitationManager
 from pmr2.citations.browser.interfaces import ICitationImportForm
 
 
@@ -30,25 +31,22 @@ class CitationImportForm(form.PostForm):
             return
         method = data.get('import_method', None)
         identifier = data.get('identifier')
+        to_here = data.get('import_here', False)
+
+        manager = zope.component.queryMultiAdapter(
+            (self.context, self.request), ICitationManager)
+
         try:
-            result = self.parseAndAdd(method, identifier)
+            result = manager.importCitationFromId(identifier, method, to_here)
         except:
             # XXX set error message?
             raise
         return
 
-    def parseAndAdd(self, method, identifier):
-        """\
-        Use the import method to import citation(s) based on the 
-        identifier into the current context.
-        """
-
-        if method is None:
-            # do autodetection.
-            # raise error if not found
-            pass
-        utility = zope.component.queryUtility(ICitationImporter, name=method)
-        utility.parseIdInto(self.context, identifier)
+        # use the CitationManager isntead.
+        # XXX get list of identifiers added
+        # XXX build links to them
+        # XXX save import result?
 
 
 class CitationSettingsForm(form.EditForm):

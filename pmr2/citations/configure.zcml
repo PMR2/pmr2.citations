@@ -9,6 +9,7 @@
   <include file="catalog.zcml" />
   <include file="profiles.zcml" />
   <include file="subscriber.zcml" />
+  <include file="adapter.zcml" />
   <include file="utility.zcml" />
   <include file="vocab.zcml" />
 

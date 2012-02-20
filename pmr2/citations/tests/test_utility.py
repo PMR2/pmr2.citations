@@ -10,6 +10,7 @@ from Products.PloneTestCase import PloneTestCase as ptc
 
 from pmr2.citations.interfaces import ICitation, ICitationSettings
 from pmr2.citations.utility import *
+from pmr2.citations.adapter import CitationManager
 from pmr2.citations.content import Citation
 
 #from pmr2.citations.tests.base import TestCitation
@@ -65,14 +66,35 @@ class CitationManagerTestCase(ptc.PloneTestCase):
         self.manager = CitationManager(self.portal, None)
 
     def test_0000_general_test(self):
-        testid = 'example'
-        id1 = u'urn:example:1'
+        id1 = u'urn:non_working_example:1'
         self.assertEqual(len(self.manager.getCitation(id1)), 0)
 
     def test_1000_import_test_registry_fail(self):
-        testid = u'urn:miriam:pubmed:17432928'
+        testid = u'urn:example:json:test.cite.1'
         self.assertRaises(ValueError,
             self.manager.importCitationFromId, testid)
+
+    def test_1010_import_test_registry(self):
+        registry = zope.component.queryUtility(IRegistry)
+        settings = registry.forInterface(ICitationSettings,
+            prefix="pmr2.citations.settings", check=False)
+        settings.default_path = '/plone'
+        testid = u'urn:example:json:test.cite.1'
+        self.manager.importCitationFromId(testid)
+        self.assertTrue('testj1' in self.portal)
+
+
+class CitationManagerWithPubmedTestCase(ptc.PloneTestCase):
+    """\
+    The core citation test case.
+    """
+
+    # really don't want this to run unless explicitly specified
+    level = 9
+
+    def afterSetUp(self):
+        self.container = {}
+        self.manager = CitationManager(self.portal, None)
 
     def test_1010_import_test_registry(self):
         registry = zope.component.queryUtility(IRegistry)

@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="pmr2.citations">
+
+  <adapter
+      for="*
+           *"
+      factory=".adapter.CitationManager"
+      provides=".interfaces.ICitationManager"
+      />
+
+</configure>
+

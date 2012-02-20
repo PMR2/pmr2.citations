@@ -49,11 +49,16 @@ class CitationBrowserTestCase(ptc.PloneTestCase):
         result = f.render()
         self.assertTrue('test_json' in result)
 
-    def test_0100_import_form_import(self):
+    def test_0100_import_form_all_specified(self):
         context = self.folder
-        request = TestRequest()
+        request = TestRequest(form={
+            'form.widgets.import_method': 'test_json',
+            'form.widgets.identifier': u'urn:example:json:test.cite.1',
+            'form.widgets.import_here': [u'true'],
+            'form.buttons.import': 1,
+        })
         f = form.CitationImportForm(context, request)
-        f.parseAndAdd('test_json', 'test.cite.1.json')
+        f.update()
         self.assertEqual(self.folder.testj1.title, u'Test Citation Title')
 
 

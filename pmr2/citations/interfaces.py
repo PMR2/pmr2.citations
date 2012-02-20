@@ -143,3 +143,33 @@ class ICitationImporter(zope.interface.Interface):
         """\
         Combines the above two functions.
         """
+
+
+class ICitationManager(zope.interface.Interface):
+    """\
+    Interface for the Citation Manager.
+    """
+
+    def getCitation(identifier):
+        """\
+        Get citation by identifier.
+        """
+
+    def getDefaultContainer():
+        """\
+        Get the default citation container.
+        """
+
+    def generateCitation(identifier):
+        """\
+        Generate a citation based on the identifier.
+        """
+
+    def importCitationFromId(identifier, importer=None, use_context=False):
+        """
+        Acquire a citation from the identifier, and generate a citation
+        then import it to context.
+
+        If use_context is False, acquire the destination container from
+        the location defined in registry.
+        """

@@ -38,12 +38,12 @@ class CitationImportForm(form.PostForm):
 
         try:
             result = manager.importCitationFromId(identifier, method, to_here)
-        except:
-            # XXX set error message?
-            raise
+        except ValueError:
+            self.status = 'Default path may be undefined. ' \
+                          'Please contact site administrator.'
+            return
         return
 
-        # use the CitationManager isntead.
         # XXX get list of identifiers added
         # XXX build links to them
         # XXX save import result?

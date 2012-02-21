@@ -89,7 +89,11 @@ class PubmedCitationImporter(BaseCitationImporter):
         citation.title = unicode(article.ArticleTitle)
         citation.creator = to_author_list(article)
         citation.issued = unicode(article.Journal.JournalIssue.PubDate.Year)
-        citation.abstract = unicode(article.Abstract.AbstractText)
+        try:
+            # XXX sometimes this is not available.
+            citation.abstract = unicode(article.Abstract.AbstractText)
+        except:
+            citation.abstract = u''
         citation.bibliographicCitation = to_medline(article)
 
         return [citation]

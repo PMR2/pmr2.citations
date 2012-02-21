@@ -78,10 +78,10 @@ class CitationManagerTestCase(ptc.PloneTestCase):
         registry = zope.component.queryUtility(IRegistry)
         settings = registry.forInterface(ICitationSettings,
             prefix="pmr2.citations.settings", check=False)
-        settings.default_path = '/plone'
+        settings.default_path = '/plone/Members/test_user_1_'
         testid = u'urn:example:json:test.cite.1'
         self.manager.importCitationFromId(testid)
-        self.assertTrue('testj1' in self.portal)
+        self.assertTrue('testj1' in self.folder)
 
 
 class CitationManagerWithPubmedTestCase(ptc.PloneTestCase):

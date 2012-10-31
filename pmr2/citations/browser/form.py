@@ -8,7 +8,7 @@ from z3c.form import form, field, button, interfaces
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-from pmr2.app.browser import form
+from pmr2.z3cform import form
 
 from pmr2.citations.interfaces import ICitationImporter, ICitationSettings
 from pmr2.citations.interfaces import ICitationManager

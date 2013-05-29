@@ -5,7 +5,7 @@ import zope.interface
 import zope.component
 import zope.event
 import zope.lifecycleevent
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 
 from Products.CMFCore.utils import getToolByName
 
